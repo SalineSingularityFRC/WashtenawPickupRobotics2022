@@ -8,16 +8,23 @@ import org.frcteam5066.common.robot.input.Axis;
 import org.frcteam5066.common.robot.input.XboxController;
 import org.frcteam5066.common.robot.subsystems.Drivetrain;
 
+
 public class RobotContainer {
     private final XboxController primaryController = new XboxController(Constants.PRIMARY_CONTROLLER_PORT);
 
     private final DrivetrainSubsystem drivetrainSubsystem = new DrivetrainSubsystem();
+    
+    private final DriveCommand defaultDrive;
+    
 
     public RobotContainer() {
         primaryController.getLeftXAxis().setInverted(true);
         primaryController.getRightXAxis().setInverted(true);
 
-        CommandScheduler.getInstance().setDefaultCommand(drivetrainSubsystem, new DriveCommand(drivetrainSubsystem, getDriveForwardAxis(), getDriveStrafeAxis(), getDriveRotationAxis()));
+        defaultDrive = new DriveCommand(drivetrainSubsystem, getDriveForwardAxis(), getDriveStrafeAxis(), getDriveRotationAxis(), primaryController, 0.2);
+
+        CommandScheduler.getInstance().setDefaultCommand(drivetrainSubsystem, defaultDrive);
+        
 
         configureButtonBindings();
     }
@@ -53,5 +60,9 @@ public class RobotContainer {
 
     public double getGyroAngle(){
         return drivetrainSubsystem.getGyroAngle();
+    }
+
+    public Command getDefaultCommand(){
+        return defaultDrive;
     }
 }

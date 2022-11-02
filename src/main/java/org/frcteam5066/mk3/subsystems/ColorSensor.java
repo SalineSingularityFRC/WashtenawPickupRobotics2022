@@ -16,7 +16,7 @@ public class ColorSensor {
     private final I2C.Port i2cPort = I2C.Port.kOnboard;
     private final ColorSensorV3 m_colorSensor = new ColorSensorV3(i2cPort);
     private final ColorMatch m_colorMatcher = new ColorMatch();
-    private final String allianceColor = DriverStation.getAlliance().toString();
+    private String allianceColor = DriverStation.getAlliance().toString();
     private int proximity = m_colorSensor.getProximity();
 
     //private final Color kBlueTarget = ColorMatch.makeColor(0.361, 0.524, 0.113);
@@ -35,6 +35,7 @@ public class ColorSensor {
         Boolean sameColor = true; 
         Color detectedColor = m_colorSensor.getColor();
         ColorMatchResult match = m_colorMatcher.matchClosestColor(detectedColor);
+        proximity = m_colorSensor.getProximity();
 
         if (match.color == kBlueTarget) {
             colorString = "Blue";
@@ -44,7 +45,7 @@ public class ColorSensor {
             colorString = "Unknown";
         }
 
-        if (!colorString.equalsIgnoreCase(allianceColor) && proximity < 135) {
+        if (!colorString.equalsIgnoreCase(allianceColor) && proximity > 96) {
             sameColor = false;
         }
 
@@ -56,5 +57,16 @@ public class ColorSensor {
         SmartDashboard.putBoolean("Ball color is the same as alliance color", sameColor);
 
         return sameColor;
+    }
+
+    public boolean hasBall(){
+        //AUTON TESTING MODIFY SPOT proximity is how far a thing is away from the color sensor. 
+        //The exact number to tell if a ball is in the robot may need to be adjusted
+        if(proximity > 110) return true;
+        return false;
+    }
+
+    public void initTeamColor(){
+        allianceColor = DriverStation.getAlliance().toString();
     }
 }

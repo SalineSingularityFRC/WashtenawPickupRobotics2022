@@ -1,6 +1,7 @@
 package org.frcteam5066.mk3.subsystems.controllers.controlSchemes;
 
 import org.frcteam5066.mk3.subsystems.CANdleSystem;
+import org.frcteam5066.mk3.subsystems.Climber;
 import org.frcteam5066.mk3.subsystems.DrivetrainSubsystem;
 import org.frcteam5066.mk3.subsystems.Intake;
 import org.frcteam5066.mk3.subsystems.Shooter;
@@ -77,6 +78,51 @@ public class Test extends ControlScheme{
         
     }
 
-    
 
+
+    @Override
+    public void shootSequence(Shooter flywheel, Intake intake) {
+        // TODO Auto-generated method stub
+        
+    }
+
+
+
+    @Override
+    public void intakeSequence(Shooter flywheel, Intake intake) {
+        // TODO Auto-generated method stub
+        
+    }
+
+
+
+    @Override
+    public void colorSensor() {
+        // TODO Auto-generated method stub
+        
+    }
+
+
+
+    @Override
+    public void climber(Climber climb) {
+        // TODO Auto-generated method stub
+        
+    }
+
+
+
+    @Override
+    public void resetClimber(Climber climber) {
+        // TODO Auto-generated method stub
+        
+    }
+/*
+    public void setPodEncoders(){
+        public static double DRIVETRAIN_FRONT_LEFT_ENCODER_OFFSET = Math.toRadians(73.037      );
+        public static double DRIVETRAIN_FRONT_RIGHT_ENCODER_OFFSET = Math.toRadians(17.051   );
+        public static double DRIVETRAIN_BACK_LEFT_ENCODER_OFFSET = Math.toRadians(356.396     );
+        public static double DRIVETRAIN_BACK_RIGHT_ENCODER_OFFSET = Math.toRadians(222.891    );
+    }
+*/
 }

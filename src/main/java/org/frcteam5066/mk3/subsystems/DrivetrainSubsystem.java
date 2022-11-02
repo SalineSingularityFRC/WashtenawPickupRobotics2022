@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.shuffleboard.BuiltInLayouts;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardLayout;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Subsystem;
 import org.frcteam5066.mk3.Constants;
 import org.frcteam5066.common.drivers.Gyroscope;
@@ -170,6 +171,7 @@ public class DrivetrainSubsystem implements Subsystem, UpdateManager.Updatable {
 
     public void drive(Vector2 translationalVelocity, double rotationalVelocity, boolean isFieldOriented) {
         synchronized (stateLock) {
+            SmartDashboard.putNumber("Rotational Velocity", rotationalVelocity);
             driveSignal = new HolonomicDriveSignal(translationalVelocity, rotationalVelocity, isFieldOriented);
         }
     }
@@ -207,8 +209,8 @@ public class DrivetrainSubsystem implements Subsystem, UpdateManager.Updatable {
     }
 
     private void configTalon(TalonFX talon) {
-        talon.configPeakOutputForward(0.3, 30);
-        talon.configPeakOutputReverse(-0.3, 30);
+        talon.configPeakOutputForward(1.0, 30);
+        talon.configPeakOutputReverse(-1.0, 30);
     }
 
     private void updateOdometry(double dt) {
@@ -251,6 +253,7 @@ public class DrivetrainSubsystem implements Subsystem, UpdateManager.Updatable {
         for (int i = 0; i < moduleOutputs.length; i++) {
             var module = modules[i];
             module.setTargetVelocity(moduleOutputs[i]);
+            //SmartDashboard.putNumber(Integer.toString(i), module.getTargetVelocity());
             module.updateState(dt);
         }
     }
@@ -278,4 +281,13 @@ public class DrivetrainSubsystem implements Subsystem, UpdateManager.Updatable {
             moduleAngleEntries[i].setDouble(Math.toDegrees(modules[i].getCurrentAngle()));
         }
     }
+
+    public double getRotationsSpun(){
+        return modules[0].getRotationsSpun();
+    }
+
+    public void resetRotationsZero(){
+        modules[0].resetRotationsZero();
+    }
+
 }
