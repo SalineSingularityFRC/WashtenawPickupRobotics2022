@@ -33,9 +33,12 @@ public class Intake {
     // maxRPMIntakeconveyor is copied from 2021 conveyor class
     double maxRPMIntakeconveyor = -4000;
     double maxRPMFeed = 5700;
-    double deployPosition = 61500;
+
+    double deployPosition = 56500; 
+    double mopBucketPosition =  43500; // 61500;
     double retractPosition = 8350; //~115 degrees to the 
     double shootingPosition = 23000;
+    
     double intakeCompressPosition = 72000;
     double intakeCompressPopsition2;
     double intakePosition;
@@ -64,7 +67,7 @@ public class Intake {
     }
 
     public void intakeCollect() {
-        intakeDrive.setSpeed(.5);
+        intakeDrive.setSpeed(0.5);
         //intakeConveyor.setVelocity(maxRPMIntakeconveyor);
         //TODO Test intake collection
     }

@@ -61,18 +61,26 @@ public class Shooter {
     }
 
     public void flywheelOn(){
+        barf();
+
         //flywheel2.setVelocity(maxRPMflywheel2);
         
         //double flywheelVelo = SmartDashboard.getNumber("Controllable Velocity", 3100);
-        double flywheelVelo = 3100;
-        flywheel1.setVelocity(flywheelVelo);
-        lastSetVelocity = flywheelVelo;
+
+
+
+        // double flywheelVelo = 3100;
+        // flywheel1.setVelocity(flywheelVelo);
+        // lastSetVelocity = flywheelVelo;
+        // uncomment these upper 3 lines if you want the flywheel to shoot far
     }
 
     public void flywheelOn(double distance){
+        barf();
 
-        flywheel1.setVelocity( computeVelocity(distance) / gearRatio);
-        lastSetVelocity = computeVelocity(distance) / gearRatio;
+        // flywheel1.setVelocity( computeVelocity(distance) / gearRatio);
+        // lastSetVelocity = computeVelocity(distance) / gearRatio;
+        // uncomment these upper 2 lines if you want flywheel to shoot far
     }
  
  

@@ -68,6 +68,7 @@ public class RunAuton extends AutonControlScheme{
 
     public void actuallyRunAutonTheMethod(){
         
+        super.getBall();
         
         if( /*testD.getSelected()*/false  ) super.testD();
 

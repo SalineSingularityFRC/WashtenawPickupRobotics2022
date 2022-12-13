@@ -21,10 +21,10 @@ public class Constants {
 
     // In degrees
     //Configure these gears in
-    public static double DRIVETRAIN_FRONT_LEFT_ENCODER_OFFSET = Math.toRadians(21.094       );
-    public static double DRIVETRAIN_FRONT_RIGHT_ENCODER_OFFSET = Math.toRadians(21.094   );
-    public static double DRIVETRAIN_BACK_LEFT_ENCODER_OFFSET = Math.toRadians(354.375    );
-    public static double DRIVETRAIN_BACK_RIGHT_ENCODER_OFFSET = Math.toRadians(223.066      );
+    public static double DRIVETRAIN_FRONT_LEFT_ENCODER_OFFSET = Math.toRadians(50      );
+    public static double DRIVETRAIN_FRONT_RIGHT_ENCODER_OFFSET = Math.toRadians(19.775   );
+    public static double DRIVETRAIN_BACK_LEFT_ENCODER_OFFSET = Math.toRadians(341.279    );
+    public static double DRIVETRAIN_BACK_RIGHT_ENCODER_OFFSET = Math.toRadians(132.275      );
 
     public static final int PRIMARY_CONTROLLER_PORT = 0;
 
