@@ -2,6 +2,7 @@ package org.frcteam5066.mk3.subsystems.controllers.controlSchemes;
 
 import org.frcteam5066.common.robot.subsystems.Drivetrain;
 import org.frcteam5066.common.robot.subsystems.HolonomicDrivetrain;
+import org.frcteam5066.mk3.ArmPneumatics;
 import org.frcteam5066.mk3.IntakePneumatics;
 import org.frcteam5066.mk3.LimeLight;
 import org.frcteam5066.mk3.subsystems.CANdleSystem;
@@ -68,7 +69,7 @@ public class ArcadeDrive extends ControlScheme {
     /**
      * 
      * @param driveControllerPort Controller port the drive controller is connected to, probably 0
-     * @param armControllerPort Controller port the arm controller is connect to, problably 1
+     * @param armControllerPort Controller port the arm controller is connect to, probably 1
      */
     public ArcadeDrive(int driveControllerPort, int armControllerPort) {
         driveController = new XboxController(driveControllerPort);
@@ -78,8 +79,8 @@ public class ArcadeDrive extends ControlScheme {
 
         
 
-        lowGear = true;
-        climberExtended = false;
+        // lowGear = true;
+        // climberExtended = false;
 
         
         
@@ -109,83 +110,105 @@ public class ArcadeDrive extends ControlScheme {
      * 
      */
 
-    public void intakeConveyer(Intake intake){
-
-        if(armController.getLB()){
-            if(armController.getAButton())
-                intake.intakeReject();
-            else {
-                intake.intakeCollect();
-                
-            }
+    public void armPneumatics(ArmPneumatics armPneumatics) {
+        if (armController.getLB()) {
+            armPneumatics.setLeftLow();
         }
-        else{
-            intake.intakeOff();
-        }
-
-        if(armController.getRB()){
-            if (armController.getAButton()) 
-                intake.conveyorReject();
-            else intake.conveyorCollect();
+        else if (armController.getTriggerLeft() > .2) {
+            armPneumatics.setLeftHigh();
         }
         else {
-            intake.conveyorOff();
+            armPneumatics.setLeftOff();
         }
 
-        if( armController.getPOVUp() ){
-            intake.intakeDeploy();
-            SmartDashboard.putNumber("Deploy", 1);
-            SmartDashboard.putNumber("Retract", 0);
+        if (armController.getRB()) {
+            armPneumatics.setRightLow();
         }
-        else if ( armController.getPOVDown() ){
-            intake.intakeRetract();
-            SmartDashboard.putNumber("Deploy", 0);
-            SmartDashboard.putNumber("Retract", 1);
+        else if (armController.getTriggerRight() > .2) {
+            armPneumatics.setRightHigh();
         }
+        else {
+            armPneumatics.setRightOff();
+        }
+    }
+
+    public void intakeConveyer(Intake intake){
+
+        // if(armController.getLB()){
+        //     if(armController.getAButton())
+        //         intake.intakeReject();
+        //     else {
+        //         intake.intakeCollect();
+                
+        //     }
+        // }
+        // else{
+        //     intake.intakeOff();
+        // }
+
+        // if(armController.getRB()){
+        //     if (armController.getAButton()) 
+        //         intake.conveyorReject();
+        //     else intake.conveyorCollect();
+        // }
+        // else {
+        //     intake.conveyorOff();
+        // }
+
+        // if( armController.getPOVUp() ){
+        //     intake.intakeDeploy();
+        //     SmartDashboard.putNumber("Deploy", 1);
+        //     SmartDashboard.putNumber("Retract", 0);
+        // }
+        // else if ( armController.getPOVDown() ){
+        //     intake.intakeRetract();
+        //     SmartDashboard.putNumber("Deploy", 0);
+        //     SmartDashboard.putNumber("Retract", 1);
+        // }
 
     }
 
     @Override
     public void flywheel(Shooter flywheel) {
 
-        SmartDashboard.putNumber("Current Velocity", flywheel.getFlywheelVelocity() + Math.random());
+        // SmartDashboard.putNumber("Current Velocity", flywheel.getFlywheelVelocity() + Math.random());
 
         
 
-        if (armController.getTriggerLeft() > .2) {
+        // if (armController.getTriggerLeft() > .2) {
 
-            SmartDashboard.putNumber("Running Flywheel", 1);
+        //     SmartDashboard.putNumber("Running Flywheel", 1);
             
-            if (armController.getAButton()) {
-                flywheel.flywheelReverse();
-            } else if (colorSensor.robotColor()) {
-                flywheel.barf();
-            } else {
-                flywheel.flywheelOn();
-            }
-        }
-        else if (armController.getPOVLeft()) {
-            flywheel.barf();
-        }
-        else flywheel.flywheelOff();
+        //     if (armController.getAButton()) {
+        //         flywheel.flywheelReverse();
+        //     } else if (colorSensor.robotColor()) {
+        //         flywheel.barf();
+        //     } else {
+        //         flywheel.flywheelOn();
+        //     }
+        // }
+        // else if (armController.getPOVLeft()) {
+        //     flywheel.barf();
+        // }
+        // else flywheel.flywheelOff();
 
-        if (armController.getTriggerRight() > .2) {
-            if (armController.getAButton())
-                flywheel.feederReverse();
-            else flywheel.feederOn(); // turns on feeder wheel
-        }
-        else flywheel.feederOff();
-        SmartDashboard.putNumber("Running Flywheel", 0);
+        // if (armController.getTriggerRight() > .2) {
+        //     if (armController.getAButton())
+        //         flywheel.feederReverse();
+        //     else flywheel.feederOn(); // turns on feeder wheel
+        // }
+        // else flywheel.feederOff();
+        // SmartDashboard.putNumber("Running Flywheel", 0);
     }
 
     public void intakePneumatics(IntakePneumatics intakePneumatics) {
-        if (armController.getPOVDown()) {
-            intakePneumatics.setHigh();
-        } else if (armController.getPOVUp()) {
-            intakePneumatics.setLow();
-        } else {
-            intakePneumatics.setOff();
-        }
+        // if (armController.getPOVDown()) {
+        //     intakePneumatics.setHigh();
+        // } else if (armController.getPOVUp()) {
+        //     intakePneumatics.setLow();
+        // } else {
+        //     intakePneumatics.setOff();
+        // }
     }
 
 
@@ -216,131 +239,131 @@ public class ArcadeDrive extends ControlScheme {
 
 
     public void shootSequence(Shooter flywheel, Intake intake) {
-        SmartDashboard.putNumber("current flywheel velocity", flywheel.getFlywheelVelocity());
-        if (armController.getTriggerRight() > 0.2 ) {
-            if(colorSensor.hasBall()){
-                if (/*colorSensor.robotColor()*/ true) {
-                    flywheel.flywheelOn();
-                    if(armController.getTriggerLeft() > .2){
-                        intake.intakeDeploy();
-                    }
-                    else{
-                        intake.intakeShooting();
-                    }
-                }
-                else {
-                    flywheel.barf();
-                    intake.intakeShooting();
-                    if(flywheel.readyToShoot()){
-                        flywheel.feederOn();
-                        intake.conveyorCollect();
-                    }
-                }
+        // SmartDashboard.putNumber("current flywheel velocity", flywheel.getFlywheelVelocity());
+        // if (armController.getTriggerRight() > 0.2 ) {
+        //     if(colorSensor.hasBall()){
+        //         if (/*colorSensor.robotColor()*/ true) {
+        //             flywheel.flywheelOn();
+        //             if(armController.getTriggerLeft() > .2){
+        //                 intake.intakeDeploy();
+        //             }
+        //             else{
+        //                 intake.intakeShooting();
+        //             }
+        //         }
+        //         else {
+        //             flywheel.barf();
+        //             intake.intakeShooting();
+        //             if(flywheel.readyToShoot()){
+        //                 flywheel.feederOn();
+        //                 intake.conveyorCollect();
+        //             }
+        //         }
                 
-                if (flywheel.readyToShoot()) {
-                    intake.conveyorCollect();
-                    flywheel.feederOn();
-                    SmartDashboard.putNumber("Feeding", 1);
-                }
-            }
-            else{
-                flywheel.flywheelOn();
-                if (flywheel.readyToShoot()) {
-                    intake.conveyorCollect();
-                    flywheel.feederOn();
-                    SmartDashboard.putNumber("Feeding", 1);
-                }
-            }
+        //         if (flywheel.readyToShoot()) {
+        //             intake.conveyorCollect();
+        //             flywheel.feederOn();
+        //             SmartDashboard.putNumber("Feeding", 1);
+        //         }
+        //     }
+        //     else{
+        //         flywheel.flywheelOn();
+        //         if (flywheel.readyToShoot()) {
+        //             intake.conveyorCollect();
+        //             flywheel.feederOn();
+        //             SmartDashboard.putNumber("Feeding", 1);
+        //         }
+        //     }
             
-        }
-        else if (armController.getRB()){
-            flywheel.barf();
-            intake.intakeShooting();
-            if (flywheel.readyToShoot()) {
-                intake.conveyorCollect();
-                flywheel.feederOn();
+        // }
+        // else if (armController.getRB()){
+        //     flywheel.barf();
+        //     intake.intakeShooting();
+        //     if (flywheel.readyToShoot()) {
+        //         intake.conveyorCollect();
+        //         flywheel.feederOn();
 
                 
-            }
+        //     }
 
-        }
-        else{
-            if(!(armController.getTriggerLeft() > .2)){
-                flywheel.flywheelOff();
-            }
+        // }
+        // else{
+        //     if(!(armController.getTriggerLeft() > .2)){
+        //         flywheel.flywheelOff();
+        //     }
             
-            SmartDashboard.putNumber("Feeding", 0);
-        }
+        //     SmartDashboard.putNumber("Feeding", 0);
+        // }
 
-        if(intake.isDeployed()){
-            if(armController.getAButton()){
-                intake.intakeCompress();
-            }
-            else{
-                intake.intakeDeploy();
-            }
-        }
+        // if(intake.isDeployed()){
+        //     if(armController.getAButton()){
+        //         intake.intakeCompress();
+        //     }
+        //     else{
+        //         intake.intakeDeploy();
+        //     }
+        // }
             
     }
 
     public void intakeSequence(Shooter flywheel, Intake intake) {
         //SmartDashboard.putNumber("Deploy Output Percent", intake.getDeployPercent());
         //SmartDashboard.putNumber("Intake Position", intake.getDeploySensorPosition());
-        if (armController.getTriggerLeft() > 0.2) {
-            intake.intakeDeploy();
+        // if (armController.getTriggerLeft() > 0.2) {
+        //     intake.intakeDeploy();
             
             
-            if (colorSensor.hasBall()) {
-                /*if (colorSensor.robotColor()) {
-                    flywheel.feederOff();
-                }
-                else {
-                    flywheel.barf();
-                    if(flywheel.readyToShoot()){
-                        flywheel.feederOn();
-                    }
-                }*/
+        //     if (colorSensor.hasBall()) {
+        //         /*if (colorSensor.robotColor()) {
+        //             flywheel.feederOff();
+        //         }
+        //         else {
+        //             flywheel.barf();
+        //             if(flywheel.readyToShoot()){
+        //                 flywheel.feederOn();
+        //             }
+        //         }*/
                 
                 
-                flywheel.feederOff();
-            }
-            else {
-                flywheel.feederOnIntake();
-            }
+        //         flywheel.feederOff();
+        //     }
+        //     else {
+        //         flywheel.feederOnIntake();
+        //     }
 
             
 
-            intake.intakeCollect();
+        //     intake.intakeCollect();
             
-            intake.conveyorCollect();
-        } 
-        else if (armController.getLB()) {
-            intake.intakeReject();
-        }
-        else{
-            if(!(armController.getTriggerRight() > .2 || armController.getRB())){
-                intake.conveyorOff();
-                flywheel.feederOff();
-            }
-            intake.intakeOff();
-        }
+        //     intake.conveyorCollect();
+        // } 
+        // else if (armController.getLB()) {
+        //     intake.intakeReject();
+        // }
+        // else{
+            //  if(!(armController.getTriggerRight() > .2 || armController.getRB())){
+        //         intake.conveyorOff();
+        //         flywheel.feederOff();
+        //     }
+        //     intake.intakeOff();
+        // }
         
-        if(armController.getPOVDown()){
-            intake.intakeDeploy();
-        }
-        else if(armController.getPOVUp()){
-            intake.intakeRetract();
-        }
-        //intake.intakeRetract();
+        // if(armController.getPOVDown()){
+        //     intake.intakeDeploy();
+        // }
+        // else if(armController.getPOVUp()){
+        //     intake.intakeRetract();
+        // }
+        // //intake.intakeRetract();
 
-        if(intake.isDeployed()){
-            if(armController.getAButton()){
-                intake.intakeCompress();
-            }
-            else{
-                intake.intakeDeploy();
-            }
-        }
+        // if(intake.isDeployed()){
+        //     if(armController.getAButton()){
+        //         intake.intakeCompress();
+        //     }
+        //     else{
+        //         intake.intakeDeploy();
+        //     }
+        // }
     }
 
     public void colorSensor(){
@@ -352,12 +375,12 @@ public class ArcadeDrive extends ControlScheme {
 
     public void candle(CANdleSystem candle){
 
-        if(armController.getPOVLeft()){
-            //servo.toIntakeAngle();
-        }
-        else if(armController.getPOVRight()){
-            //servo.toTargetingAngle();
-        }
+        // if(armController.getPOVLeft()){
+        //     //servo.toIntakeAngle();
+        // }
+        // else if(armController.getPOVRight()){
+        //     //servo.toTargetingAngle();
+        // }
 
 
 
@@ -387,84 +410,84 @@ public class ArcadeDrive extends ControlScheme {
 
     public void limeLightDrive(LimeLight limelight, DrivetrainSubsystem drive){
 
-        //SmartDashboard.putNumber("Servo Position", servo.getServoAngle());
+        // //SmartDashboard.putNumber("Servo Position", servo.getServoAngle());
 
-        //motorCycle.on();
+        // //motorCycle.on();
         
-        boolean runningLimelight;
-        boolean hasVision;
-        if (driveController.getXButton()) {
-            //motorCycle.off();
-            SmartDashboard.putNumber("Motorcycle Light State", 0);
-            //limelight.ledOn(limelight);
-            //limelight.setpipeline(limelight, 0.0);
+        // boolean runningLimelight;
+        // boolean hasVision;
+        // if (driveController.getXButton()) {
+        //     //motorCycle.off();
+        //     SmartDashboard.putNumber("Motorcycle Light State", 0);
+        //     //limelight.ledOn(limelight);
+        //     //limelight.setpipeline(limelight, 0.0);
 
             
-            hasVision = limelight.runLimeLight(drive, 1);
-            runningLimelight = true;
-            //limelight.ledMode.setBoolean(true);
+        //     hasVision = limelight.runLimeLight(drive, 1);
+        //     runningLimelight = true;
+        //     //limelight.ledMode.setBoolean(true);
 
             
-        }
-        else if (driveController.getBButton()){
-            //motorCycle.on();
-            SmartDashboard.putNumber("Motorcycle Light State", 1);
-            SmartDashboard.putNumber("Limelight Running", 1);
-            //limelight.ledOff(limelight);
-            //limelight.setpipeline(limelight, 1.0);
-            if(getAllianceColor().equals("Blue") ){ //don't be a sinner and use ==. use .equals();
-                hasVision = limelight.runLimeLight(drive, 2);
-                //SmartDashboard.putNumber("Limelight Running", 1);
-            }
-            else{
-                hasVision = limelight.runLimeLight(drive, 3);
-            }
-            runningLimelight = true;
+        // }
+        // else if (driveController.getBButton()){
+        //     //motorCycle.on();
+        //     SmartDashboard.putNumber("Motorcycle Light State", 1);
+        //     SmartDashboard.putNumber("Limelight Running", 1);
+        //     //limelight.ledOff(limelight);
+        //     //limelight.setpipeline(limelight, 1.0);
+        //     if(getAllianceColor().equals("Blue") ){ //don't be a sinner and use ==. use .equals();
+        //         hasVision = limelight.runLimeLight(drive, 2);
+        //         //SmartDashboard.putNumber("Limelight Running", 1);
+        //     }
+        //     else{
+        //         hasVision = limelight.runLimeLight(drive, 3);
+        //     }
+        //     runningLimelight = true;
         
-        }
-        else{
-            //motorCycle.off();
-            SmartDashboard.putNumber("Motorcycle Light State", 0);
-            runningLimelight = false;
-            hasVision = false;
-            limelight.candleOff();
-            //limelight.ledOff(limelight);
-        }
-        SmartDashboard.putNumber("Running Limelight", runningLimelight ? 1:0);
-        SmartDashboard.putNumber("Has Vision", hasVision ? 1:0);
+        // }
+        // else{
+        //     //motorCycle.off();
+        //     SmartDashboard.putNumber("Motorcycle Light State", 0);
+        //     runningLimelight = false;
+        //     hasVision = false;
+        //     limelight.candleOff();
+        //     //limelight.ledOff(limelight);
+        // }
+        // SmartDashboard.putNumber("Running Limelight", runningLimelight ? 1:0);
+        // SmartDashboard.putNumber("Has Vision", hasVision ? 1:0);
     }
 
     
     public void climber(Climber climb) {
-        SmartDashboard.putNumber("Climber Position", climb.getPosition());
+        // SmartDashboard.putNumber("Climber Position", climb.getPosition());
         
-        if (armController.getXButton()) {
-            climb.climb();
-        }
+        // if (armController.getXButton()) {
+        //     climb.climb();
+        // }
 
-        else if (armController.getYButton()) {
-            climb.deploy();
-        }
+        // else if (armController.getYButton()) {
+        //     climb.deploy();
+        // }
 
-        else {
-            climb.stop();
-        }
+        // else {
+        //     climb.stop();
+        // }
 
     }
 
     
     public void resetClimber(Climber climb) {
-        if (armController.getXButton()) {
-            climb.climb();
-        }
+        // if (armController.getXButton()) {
+        //     climb.climb();
+        // }
 
-        else if (armController.getYButton()) {
-            climb.reset();
-        }
+        // else if (armController.getYButton()) {
+        //     climb.reset();
+        // }
 
-        else {
-            climb.stop();
-        }
+        // else {
+        //     climb.stop();
+        // }
         
     }
 

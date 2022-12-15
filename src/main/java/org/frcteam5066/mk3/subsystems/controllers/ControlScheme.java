@@ -15,6 +15,8 @@ import org.frcteam5066.mk3.subsystems.Climber;
 import org.frcteam5066.mk3.subsystems.DrivetrainSubsystem;
 import org.frcteam5066.mk3.subsystems.Intake;
 import org.frcteam5066.mk3.subsystems.Shooter;
+import org.frcteam5066.mk3.ArmPneumatics;
+
 
 import com.kauailabs.navx.frc.AHRS;
 
@@ -37,6 +39,7 @@ public abstract class ControlScheme {
 	public abstract void candle(CANdleSystem candle);
 	public abstract void colorSensor();
 	public abstract void climber(Climber climb);
+	public abstract void armPneumatics(ArmPneumatics armPneumatics);
 
 	public abstract void  resetClimber(Climber climber);
 

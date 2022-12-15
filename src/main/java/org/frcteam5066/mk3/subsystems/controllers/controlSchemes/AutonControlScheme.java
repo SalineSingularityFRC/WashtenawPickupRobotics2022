@@ -21,6 +21,9 @@ import org.frcteam5066.mk3.subsystems.Intake;
 
 import org.frcteam5066.common.math.Rotation2;
 
+import org.frcteam5066.mk3.ArmPneumatics;
+
+
 public abstract class AutonControlScheme {
 
     protected static AHRS gyro;
@@ -32,6 +35,7 @@ public abstract class AutonControlScheme {
     protected static int position = 2;
     protected static int color;
     protected static int rotationDirection; //1 is clockwise, -1 is counter-clockwise
+    protected static ArmPneumatics armPneumatics;
     
     private boolean autonBarfDone;
     private boolean driveDone;
@@ -42,6 +46,10 @@ public abstract class AutonControlScheme {
     private boolean aimBeenReset;
     private boolean shootBeenReset;
     private boolean getBallBeenReset;
+
+    private boolean isDrive1Done;
+    private boolean isGetBucketDone;
+
     
     boolean autonBarfProgress;
     boolean driveProgress;
@@ -60,30 +68,33 @@ public abstract class AutonControlScheme {
     private double d = 7.5; //feet - CONVERT TO METERS LATER
     double startTime ;
 
+
+    boolean drive1Done;
+    boolean getBucket1Done;
+
     SendableChooser<Integer> startingPosition = new SendableChooser<>();
 
-    public AutonControlScheme(LimeLight limeLight, Shooter shooter, Intake intake, DrivetrainSubsystem _drive, String color, ColorSensor colorSensor){
+    public AutonControlScheme(ArmPneumatics armPneumatics, LimeLight limeLight, DrivetrainSubsystem _drive, String color){
         
         drive = _drive;
 
         drive.resetRotationsZero();
 
-        startingPosition.setDefaultOption("Position 1", 1);
-        startingPosition.addOption("Position 2", 2);
-        startingPosition.addOption("Position 3", 3);
-        startingPosition.addOption("Position 3", 4);
-
+        startingPosition.setDefaultOption("Left", 1);
+        startingPosition.addOption("Right", 2);
+        
         //this.gyro = new AHRS(Port.kMXP);
         this.limeLight = limeLight;
-        this.shooter = shooter;
-        this.intake = intake;
-        this.colorSensor = colorSensor;
         
         //this.position = startingPosition.getSelected();
         this.position = 1;
         if(position < 3) rotationDirection = 1;
         else rotationDirection = -1;
+        this.armPneumatics = armPneumatics;
 
+        
+
+    
     autonBarfDone = false;
     driveDone = false;
     aimDone = false;
@@ -110,7 +121,11 @@ public abstract class AutonControlScheme {
     testDProgress2 = false;
     initAnglePos = 0;
 
+    drive1Done = false;
+    getBucket1Done = false;
+
     startTime = System.currentTimeMillis() / 1000.0;
+
     }
 
     private static boolean hasCargoTarget(){
@@ -121,6 +136,122 @@ public abstract class AutonControlScheme {
     private void resetAnglePos(){
         initAnglePos = drive.getGyroAngle();
     }
+
+
+    // IMPORTANT STUFF HERE
+
+
+
+
+
+
+
+
+
+    private boolean isDrive1Done(){
+        return drive1Done;
+    }
+
+    private boolean isGetBucket1Done(){
+        return getBucket1Done;
+    }
+
+    public boolean driveDistance(double distance){
+        drive.resetRotationsZero();
+        if(!drive1Done){
+            driveDistanceProgress = true;
+        }
+        // else if
+        
+        if( wheelCirc * drive.getRotationsSpun() < distance){
+            //limeLight.runLimeLight(drive, color);
+            drive.drive(new Vector2(1,0), 1, false);
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
+
+    public boolean driveReverseDistance(double distance){
+        drive.resetRotationsZero();
+        if(!drive1Done){
+            driveDistanceProgress = true;
+        }
+        // else if
+        
+        if( wheelCirc * drive.getRotationsSpun() < distance){
+            //limeLight.runLimeLight(drive, color);
+            drive.drive(new Vector2(-1,0), 1, false);
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
+
+    public boolean driveRightDistance(double distance){
+        drive.resetRotationsZero();
+        if(!drive1Done){
+            driveDistanceProgress = true;
+        }
+        // else if
+        
+        if( wheelCirc * drive.getRotationsSpun() < distance){
+            //limeLight.runLimeLight(drive, color);
+            drive.drive(new Vector2(0,1), 1, false);
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
+
+    public boolean setRightPneumaticsForward() {
+        armPneumatics.setRightHigh();
+        return true;
+    }
+
+    public boolean setRightPneumaticsBackward() {
+        armPneumatics.setRightLow();
+        return true;
+    }
+
+    public boolean setRightPneumaticsOff() {
+        armPneumatics.setRightOff();
+        return true;
+    }
+
+    public boolean setLeftPneumaticsForward() {
+        armPneumatics.setLeftHigh();
+        return true;
+    }
+
+    public boolean setLeftPneumaticsBackward() {
+        armPneumatics.setLeftLow();
+        return true;
+    }
+
+    public boolean setLeftPneumaticsOff() {
+        armPneumatics.setLeftOff();
+        return true;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    // AFTER THIS DOESN'T MATTER
 
     public boolean autonBarfDone(){
         return autonBarfDone;
@@ -167,6 +298,24 @@ public abstract class AutonControlScheme {
         }
     }
 
+    private boolean driveDistanceCopy(double distance){
+        if(!driveDistanceProgress){
+            drive.resetRotationsZero();
+            driveDistanceProgress = true;
+            return false;
+        }
+        
+        if( wheelCirc * drive.getRotationsSpun() < distance){
+            //limeLight.runLimeLight(drive, color);
+            drive.drive(new Vector2(1,0), 1, false);
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
+
+    
     // target == 1 is vision tape, target == 2 is ball
     
     //TODO test "D" value more
@@ -528,22 +677,7 @@ public abstract class AutonControlScheme {
         }
     }
 
-    private boolean driveDistance(double distance){
-        if(!driveDistanceProgress){
-            drive.resetRotationsZero();
-            driveDistanceProgress = true;
-            return false;
-        }
-        
-        if( wheelCirc * drive.getRotationsSpun() < distance){
-            //limeLight.runLimeLight(drive, color);
-            drive.drive(new Vector2(1,0), 1, false);
-            return false;
-        }
-        else {
-            return true;
-        }
-    }
+    
 
     public void driveAndSpin(double distance, double angleFromNorth, double deltaAngle, int rotDirection){
         if(!driveAndSpinProgress1){

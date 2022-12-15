@@ -25,7 +25,7 @@ import org.frcteam5066.mk3.subsystems.controllers.XboxController;
 import org.frcteam5066.mk3.subsystems.controllers.controlSchemes.ArcadeDrive;
 import org.frcteam5066.mk3.subsystems.controllers.controlSchemes.RunAuton;
 
-public class Robot extends TimedRobot {
+public class RobotFor2022Robot extends TimedRobot {
     private RobotContainer robotContainer;
     private UpdateManager updateManager;
 
@@ -34,21 +34,19 @@ public class Robot extends TimedRobot {
     //Compressor compressor;
     LimeLight limeLight;
 
-    // int flywheelMotor1Port, flywheelMotor2Port, flywheelMotor3Port;
-    // int conveyorMotorPort;
+    int flywheelMotor1Port, flywheelMotor2Port, flywheelMotor3Port;
+    int conveyorMotorPort;
 
     ControlScheme currentScheme;
 
-    // ColorSensor colorSensor;
+    ColorSensor colorSensor;
 
-    // Climber climber; 
+    Climber climber; 
     
-    // Shooter flywheel;
-    // Intake intake;
+    Shooter flywheel;
+    Intake intake;
     //IntakePneumatics intakePneumatics;
     RunAuton runAuton;
-
-    ArmPneumatics armPneumatics;
 
     final int XBOX_PORT = 0;
 	final int BIG_JOYSTICK_PORT = 1;
@@ -71,23 +69,22 @@ public class Robot extends TimedRobot {
         dontDriveCommand = new DontDriveCommand(robotContainer.getDrivetrainSubsystem());
 
         allianceColor = DriverStation.getAlliance().toString();
-        armPneumatics = new ArmPneumatics(0, 1, 2, 3); // change the channel numbers later
-
+        
         
 
         
 
-        // flywheel = new Shooter(61, 11, 3);
+        flywheel = new Shooter(61, 11, 3);
 
-        // climber = new Climber(6);
+        climber = new Climber(6);
 
         currentScheme = new ArcadeDrive(XBOX_PORT, XBOX_PORT + 1);
 
-        // intake = new Intake(15, 1, 31);
+        intake = new Intake(15, 1, 31);
 
         candle = new CANdleSystem();
 
-        // colorSensor = new ColorSensor();
+        colorSensor = new ColorSensor();
 
         //intakePneumatics = new IntakePneumatics(0, 1);
 
@@ -100,7 +97,7 @@ public class Robot extends TimedRobot {
 
         //runAuton = new RunAuton(limeLight, flywheel, intake, robotContainer.getDrivetrainSubsystem(), allianceColor);
         // candle.changeAnimation(AnimationTypes.TwinkleOff);
-        runAuton = new RunAuton(armPneumatics, limeLight, robotContainer.getDrivetrainSubsystem(), allianceColor);
+        // runAuton = new RunAuton(limeLight, flywheel, intake, robotContainer.getDrivetrainSubsystem(), allianceColor, colorSensor);
  
     }
 
@@ -170,7 +167,7 @@ public class Robot extends TimedRobot {
 
     @Override
     public void testPeriodic() {
-        // currentScheme.resetClimber(climber);
+        currentScheme.resetClimber(climber);
         currentScheme.candle(candle);
     }
 
@@ -190,25 +187,22 @@ public class Robot extends TimedRobot {
         CommandScheduler.getInstance().run();
 
         SmartDashboard.putNumber("Running Robot", 1);
-        // currentScheme.shootSequence(flywheel, intake);
-        // currentScheme.intakeSequence(flywheel, intake);
+        currentScheme.shootSequence(flywheel, intake);
+        currentScheme.intakeSequence(flywheel, intake);
         // currentScheme.flywheel(flywheel);           
         // currentScheme.intakeConveyer(intake);
         //currentScheme.intakePneumatics(intakePneumatics);
 
-
-        // intake.setCeaseIntake(true);
-        // flywheel.setCeaseFlywheel(true);
+        intake.setCeaseIntake(true);
+        flywheel.setCeaseFlywheel(true);
         
         currentScheme.limeLightDrive(limeLight, robotContainer.getDrivetrainSubsystem());
 
         currentScheme.candle(candle);
 
-        // currentScheme.climber(climber);
+        currentScheme.climber(climber);
 
         currentScheme.colorSensor();
-
-        currentScheme.armPneumatics(armPneumatics);
 
         SmartDashboard.putNumber("Gyro Angle", robotContainer.getGyroAngle());
         SmartDashboard.putNumber("CAN Test", Constants.DRIVETRAIN_FRONT_LEFT_DRIVE_MOTOR);

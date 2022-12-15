@@ -70,13 +70,13 @@ public class DrivetrainSubsystem implements Subsystem, UpdateManager.Updatable {
             gyroscope.setInverted(true);
         }
 
-        TalonFX frontLeftSteeringMotor = new TalonFX(Constants.DRIVETRAIN_FRONT_LEFT_ANGLE_MOTOR, "drivetrain");
-        TalonFX backLeftSteeringMotor = new TalonFX(Constants.DRIVETRAIN_BACK_LEFT_ANGLE_MOTOR, "drivetrain");
+        TalonFX frontLeftSteeringMotor = new TalonFX(Constants.DRIVETRAIN_FRONT_LEFT_ANGLE_MOTOR, "rio");
+        TalonFX backLeftSteeringMotor = new TalonFX(Constants.DRIVETRAIN_BACK_LEFT_ANGLE_MOTOR, "rio");
 
-        TalonFX frontLeftDriveMotor = new TalonFX(Constants.DRIVETRAIN_FRONT_LEFT_DRIVE_MOTOR, "drivetrain");
-        TalonFX frontRightDriveMotor = new TalonFX(Constants.DRIVETRAIN_FRONT_RIGHT_DRIVE_MOTOR, "drivetrain");
-        TalonFX backLeftDriveMotor = new TalonFX(Constants.DRIVETRAIN_BACK_LEFT_DRIVE_MOTOR, "drivetrain");
-        TalonFX backRightDriveMotor = new TalonFX(Constants.DRIVETRAIN_BACK_RIGHT_DRIVE_MOTOR, "drivetrain");
+        TalonFX frontLeftDriveMotor = new TalonFX(Constants.DRIVETRAIN_FRONT_LEFT_DRIVE_MOTOR, "rio");
+        TalonFX frontRightDriveMotor = new TalonFX(Constants.DRIVETRAIN_FRONT_RIGHT_DRIVE_MOTOR, "rio");
+        TalonFX backLeftDriveMotor = new TalonFX(Constants.DRIVETRAIN_BACK_LEFT_DRIVE_MOTOR, "rio");
+        TalonFX backRightDriveMotor = new TalonFX(Constants.DRIVETRAIN_BACK_RIGHT_DRIVE_MOTOR, "rio");
 
         frontRightDriveMotor.setInverted(true);
         backRightDriveMotor.setInverted(true);
@@ -93,15 +93,15 @@ public class DrivetrainSubsystem implements Subsystem, UpdateManager.Updatable {
                 DRIVE_GEAR_RATIO,
                 frontLeftSteeringMotor,
                 frontLeftDriveMotor,
-                new CANCoder(Constants.DRIVETRAIN_FRONT_LEFT_ENCODER_PORT, "drivetrain"));
+                new CANCoder(Constants.DRIVETRAIN_FRONT_LEFT_ENCODER_PORT, "rio"));
 
         Mk3SwerveModule frontRightModule = new Mk3SwerveModule(new Vector2(TRACKWIDTH / 2.0, -WHEELBASE / 2.0),
                 Constants.DRIVETRAIN_FRONT_RIGHT_ENCODER_OFFSET,
                 STEER_GEAR_RATIO,
                 DRIVE_GEAR_RATIO,
-                new TalonFX(Constants.DRIVETRAIN_FRONT_RIGHT_ANGLE_MOTOR, "drivetrain"),
+                new TalonFX(Constants.DRIVETRAIN_FRONT_RIGHT_ANGLE_MOTOR, "rio"),
                 frontRightDriveMotor,
-                new CANCoder(Constants.DRIVETRAIN_FRONT_RIGHT_ENCODER_PORT, "drivetrain"));
+                new CANCoder(Constants.DRIVETRAIN_FRONT_RIGHT_ENCODER_PORT, "rio"));
 
         Mk3SwerveModule backLeftModule = new Mk3SwerveModule(new Vector2(-TRACKWIDTH / 2.0, WHEELBASE / 2.0),
                 Constants.DRIVETRAIN_BACK_LEFT_ENCODER_OFFSET,
@@ -109,15 +109,15 @@ public class DrivetrainSubsystem implements Subsystem, UpdateManager.Updatable {
                 DRIVE_GEAR_RATIO,
                 backLeftSteeringMotor,
                 backLeftDriveMotor,
-                new CANCoder(Constants.DRIVETRAIN_BACK_LEFT_ENCODER_PORT, "drivetrain"));
+                new CANCoder(Constants.DRIVETRAIN_BACK_LEFT_ENCODER_PORT, "rio"));
 
         Mk3SwerveModule backRightModule = new Mk3SwerveModule(new Vector2(-TRACKWIDTH / 2.0, -WHEELBASE / 2.0),
                 Constants.DRIVETRAIN_BACK_RIGHT_ENCODER_OFFSET,
                 STEER_GEAR_RATIO,
                 DRIVE_GEAR_RATIO,
-                new TalonFX(Constants.DRIVETRAIN_BACK_RIGHT_ANGLE_MOTOR, "drivetrain"),
+                new TalonFX(Constants.DRIVETRAIN_BACK_RIGHT_ANGLE_MOTOR, "rio"),
                 backRightDriveMotor,
-                new CANCoder(Constants.DRIVETRAIN_BACK_RIGHT_ENCODER_PORT, "drivetrain"));
+                new CANCoder(Constants.DRIVETRAIN_BACK_RIGHT_ENCODER_PORT, "rio"));
 
         modules = new Mk3SwerveModule[] {frontLeftModule, frontRightModule, backLeftModule, backRightModule};
 

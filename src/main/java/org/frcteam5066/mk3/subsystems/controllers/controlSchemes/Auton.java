@@ -13,10 +13,8 @@ public class Auton {
     SendableChooser<Integer> startingPositions = new SendableChooser<>();
     
     public Auton(){
-        startingPositions.setDefaultOption("Position 1", 1);
-        startingPositions.addOption("Position 2", 2);
-        startingPositions.addOption("Position 3", 3);
-        startingPositions.addOption("Position 4", 4);
+        startingPositions.setDefaultOption("Left", 1); // from the POV of drivers station
+        startingPositions.addOption("Right", 2);
     }
         
 

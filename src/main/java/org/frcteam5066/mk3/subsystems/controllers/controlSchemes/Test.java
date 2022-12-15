@@ -9,6 +9,7 @@ import org.frcteam5066.mk3.subsystems.controllers.*;
 import org.frcteam5066.mk3.IntakePneumatics;
 import org.frcteam5066.mk3.LimeLight;
 import org.frcteam5066.mk3.Robot;
+import org.frcteam5066.mk3.ArmPneumatics;
 
 import com.kauailabs.navx.frc.AHRS;
 
@@ -109,6 +110,12 @@ public class Test extends ControlScheme{
         // TODO Auto-generated method stub
         
     }
+
+    @Override
+    public void armPneumatics(ArmPneumatics armPneumatics) {
+        // TODO Auto-generated method stub
+    }
+
 
 
 
