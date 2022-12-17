@@ -34,38 +34,40 @@ public class RunAuton extends AutonControlScheme{
 
         super(armPneumatics, limeLight, drive, color);
 
-        doDrive.setDefaultOption("Do Drive", true);
-        doDrive.addOption("Dont Drive", false);
+        // doDrive.setDefaultOption("Do Drive", true);
+        // doDrive.addOption("Dont Drive", false);
 
-        doShoot.setDefaultOption("Do Shoot", true);
-        doShoot.addOption("Don't Shoot", false);
+        // doShoot.setDefaultOption("Do Shoot", true);
+        // doShoot.addOption("Don't Shoot", false);
 
-        doDriveReverse.setDefaultOption("Do Reverse Drive", true);
-        doDriveReverse.addOption("Don't Reverse Drive", true);
+        // doDriveReverse.setDefaultOption("Do Reverse Drive", true);
+        // doDriveReverse.addOption("Don't Reverse Drive", true);
 
-        doSearch.setDefaultOption("DO Search ", true);
-        doSearch.addOption("Don't Search", false);
+        // doSearch.setDefaultOption("DO Search ", true);
+        // doSearch.addOption("Don't Search", false);
 
-        doShoot2.setDefaultOption("DoShoot 2", true);
-        doShoot2.addOption("Don't Shoot 2", false);
+        // doShoot2.setDefaultOption("DoShoot 2", true);
+        // doShoot2.addOption("Don't Shoot 2", false);
 
-        testD.setDefaultOption("TestD", true);
-        testD.addOption("Don't TestD", false);
+        // testD.setDefaultOption("TestD", true);
+        // testD.addOption("Don't TestD", false);
 
-        doFixedAuton.setDefaultOption("Do Fixed Auton", true);
-        doFixedAuton.addOption("Don't do Fixed Auton", false);
+        // doFixedAuton.setDefaultOption("Do Fixed Auton", true);
+        // doFixedAuton.addOption("Don't do Fixed Auton", false);
 
-        doMainModularAuton.setDefaultOption("Do Main Modular Auton", true);
-        doMainModularAuton.addOption("Don't do Main Modular Auton", false);
+        // doMainModularAuton.setDefaultOption("Do Main Modular Auton", true);
+        // doMainModularAuton.addOption("Don't do Main Modular Auton", false);
 
-        SmartDashboard.putData(doDrive);
-        SmartDashboard.putData(doShoot);
-        SmartDashboard.putData(doDriveReverse);
-        SmartDashboard.putData(doSearch);
-        SmartDashboard.putData(doShoot2);
-        SmartDashboard.putData(testD);
-        SmartDashboard.putData(doFixedAuton);
-        SmartDashboard.putData(doMainModularAuton);
+        // SmartDashboard.putData(doDrive);
+        // SmartDashboard.putData(doShoot);
+        // SmartDashboard.putData(doDriveReverse);
+        // SmartDashboard.putData(doSearch);
+        // SmartDashboard.putData(doShoot2);
+        // SmartDashboard.putData(testD);
+        // SmartDashboard.putData(doFixedAuton);
+        // SmartDashboard.putData(doMainModularAuton);
+
+        doMainModularAuton.
 
     }
 

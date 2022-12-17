@@ -130,6 +130,14 @@ public class ArcadeDrive extends ControlScheme {
         else {
             armPneumatics.setRightOff();
         }
+
+        if (armController.getXButton() || armController.getYButton() || armController.getAButton() || armController.getBButton()) {
+            armPneumatics.enableCompressor();
+        }
+
+        if (!armController.getPOVOff()) { // double check this later
+            armPneumatics.disableCompressor();
+        }
     }
 
     public void intakeConveyer(Intake intake){

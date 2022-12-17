@@ -20,8 +20,7 @@ public class ArmPneumatics{
 		rightDoubleSolenoid = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, rightArmForwardChannel, rightArmreverseChannel);
 		rightDoubleSolenoid.set(DoubleSolenoid.Value.kReverse);
 		
-		pcmCompressor.enableDigital();
-		// pcmCompressor.disable();
+		pcmCompressor.disable();
 
     }
 	
@@ -48,6 +47,14 @@ public class ArmPneumatics{
 	
 	public void setRightOff() {
 		rightDoubleSolenoid.set(DoubleSolenoid.Value.kOff);
+	}
+
+	public void enableCompressor() {
+		pcmCompressor.enableDigital();
+	}
+
+	public void disableCompressor() {
+		pcmCompressor.disable();
 	}
 
 }
