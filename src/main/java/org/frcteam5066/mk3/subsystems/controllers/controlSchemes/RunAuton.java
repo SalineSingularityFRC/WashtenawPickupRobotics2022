@@ -67,8 +67,6 @@ public class RunAuton extends AutonControlScheme{
         // SmartDashboard.putData(doFixedAuton);
         // SmartDashboard.putData(doMainModularAuton);
 
-        doMainModularAuton.
-
     }
 
     public void actuallyRunAutonTheMethod(){
