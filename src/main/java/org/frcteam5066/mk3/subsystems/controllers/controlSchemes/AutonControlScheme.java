@@ -165,7 +165,7 @@ public abstract class AutonControlScheme {
         
         if( wheelCirc * drive.getRotationsSpun() < distance){
             //limeLight.runLimeLight(drive, color);
-            drive.drive(new Vector2(1,0), 1, false);
+            drive.drive(new Vector2(0,1), 1, false);
             return false;
         }
         else {
@@ -182,7 +182,7 @@ public abstract class AutonControlScheme {
         
         if( wheelCirc * drive.getRotationsSpun() < distance){
             //limeLight.runLimeLight(drive, color);
-            drive.drive(new Vector2(-1,0), 1, false);
+            drive.drive(new Vector2(0,-1), 1, false);
             return false;
         }
         else {
@@ -199,7 +199,7 @@ public abstract class AutonControlScheme {
         
         if( wheelCirc * drive.getRotationsSpun() < distance){
             //limeLight.runLimeLight(drive, color);
-            drive.drive(new Vector2(0,1), 1, false);
+            drive.drive(new Vector2(1,0), 1, false);
             return false;
         }
         else {

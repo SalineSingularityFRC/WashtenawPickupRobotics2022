@@ -5,54 +5,54 @@
                 "Name": "FL_Angle",
                 "ControlMethod": "Angle",
                 "Type": "Falcon",
-                "CanID":1,
+                "CanID":17,
                 "Coast":false,
-                "CanCoderID":41
+                "CanCoderID":43
             },
             {
                 "Name": "FL_Wheel",
                 "Type": "Falcon",
-                "CanID":2
+                "CanID":15
             },
             {
                 "Name": "FR_Angle",
                 "ControlMethod": "Angle",
                 "Type": "Falcon",
-                "CanID":3,
+                "CanID":12,
                 "Coast":false,
-                "CanCoderID":42
+                "CanCoderID":44
             },
             {
                 "Name": "FR_Wheel",
                 "Type": "Falcon",
-                "CanID":4
+                "CanID":16
 
             },
             {
                 "Name": "BL_Angle",
                 "ControlMethod": "Angle",
                 "Type": "Falcon",
-                "CanID":5,
+                "CanID":13,
                 "Coast":false,
-                "CanCoderID":43
+                "CanCoderID":42
             },
             {
                 "Name": "BL_Wheel",
                 "Type": "Falcon",
-                "CanID":6
+                "CanID":11
             },
             {
                 "Name": "BR_Angle",
                 "ControlMethod": "Angle",
                 "Type": "Falcon",
-                "CanID":7,
+                "CanID":14,
                 "Coast":false,
-                "CanCoderID":44
+                "CanCoderID":41
             },
             {
                 "Name": "BR_Wheel",
                 "Type": "Falcon",
-                "CanID":8
+                "CanID":18
 
             }
         ],

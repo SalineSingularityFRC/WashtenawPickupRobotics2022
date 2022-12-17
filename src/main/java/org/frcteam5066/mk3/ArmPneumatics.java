@@ -1,5 +1,6 @@
 package org.frcteam5066.mk3;
 
+import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 
@@ -8,6 +9,9 @@ public class ArmPneumatics{
 	DoubleSolenoid leftDoubleSolenoid;
 	DoubleSolenoid rightDoubleSolenoid;
 	//left and right looking at the robot from the back 
+	
+	Compressor pcmCompressor = new Compressor(0, PneumaticsModuleType.CTREPCM);
+
 
     public ArmPneumatics(int leftArmForwardChannel, int leftArmreverseChannel, int rightArmForwardChannel, int rightArmreverseChannel){
         leftDoubleSolenoid = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, leftArmForwardChannel, leftArmreverseChannel);
@@ -15,6 +19,10 @@ public class ArmPneumatics{
 
 		rightDoubleSolenoid = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, rightArmForwardChannel, rightArmreverseChannel);
 		rightDoubleSolenoid.set(DoubleSolenoid.Value.kReverse);
+		
+		pcmCompressor.enableDigital();
+		// pcmCompressor.disable();
+
     }
 	
 	public void setLeftHigh() {

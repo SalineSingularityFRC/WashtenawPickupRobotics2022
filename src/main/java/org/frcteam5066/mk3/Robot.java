@@ -71,7 +71,7 @@ public class Robot extends TimedRobot {
         dontDriveCommand = new DontDriveCommand(robotContainer.getDrivetrainSubsystem());
 
         allianceColor = DriverStation.getAlliance().toString();
-        armPneumatics = new ArmPneumatics(0, 1, 2, 3); // change the channel numbers later
+        armPneumatics = new ArmPneumatics(6, 7, 0, 1); // change the channel numbers later
 
         
 
